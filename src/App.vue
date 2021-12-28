@@ -36,7 +36,6 @@
 		</div>
 	</nav>
 
-	<!-- <Modal /> -->
 	<!-- Rendering the templates: -->
 	<div class="container pt-4">
 		<router-view />

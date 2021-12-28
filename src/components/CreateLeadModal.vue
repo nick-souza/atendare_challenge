@@ -134,25 +134,17 @@ export default {
 			this.v$.$reset();
 			this.form.name = "";
 			this.form.phone = "";
-			this.form.address = "";
+			this.form.email = "";
+			this.form.cpf = "";
 		},
 		// Clearing the input and the input errors (touch):
 		hideModal() {
 			this.v$.$reset();
 			this.form.name = "";
 			this.form.phone = "";
-			this.form.address = "";
+			this.form.email = "";
+			this.form.cpf = "";
 		},
-		// getLeads() {
-		// 	LeadService.getLeads()
-		// 		.then((response) => {
-		// 			console.log(response.data);
-		// 			this.leads = response.data.results;
-		// 		})
-		// 		.catch(() => {
-		// 			console.log("error");
-		// 		});
-		// },
 		create() {
 			LeadService.createLead(this.form.name, this.form.phone, this.form.email, this.form.cpf)
 				.then((response) => {

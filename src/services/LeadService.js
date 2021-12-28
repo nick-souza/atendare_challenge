@@ -9,9 +9,9 @@ const TOKEN = "fErAbPBLKVvl9IIL5Bk2ZE8X7tZ78xNKPm6MFi6orF0LqWgx85ou8QvBeZBmucMrh
 // Service Class:
 class LeadService {
 	//Get Method:
-	getLeads() {
-		// return axios.get(`${BASE_URL}?pageIndex=${pageIndex}&pageSize=${pageSize}`);
-		return axios.get(`${BASE_URL}?pageIndex=0&pageSize=15`, {
+	getLeads(pageIndex, pageSize) {
+		return axios.get(`${BASE_URL}?pageIndex=${pageIndex}&pageSize=${pageSize}`, {
+			// return axios.get(`${BASE_URL}?pageIndex=0&pageSize=15`, {
 			//prettier-ignore
 			headers: {
 				"Accept": "application/json",
