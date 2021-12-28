@@ -1,6 +1,6 @@
 <template>
 	<!-- NavBar: -->
-	<nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+	<nav class="navbar navbar-expand-lg navbar-dark">
 		<div class="container-fluid">
 			<a class="navbar-brand">
 				<img src="https://atendare-static.storage.googleapis.com/Images/Atendare/AtendareWhiteLogo.svg" alt="" width="126" height="24" class="d-inline-block align-text-top" />
@@ -26,15 +26,32 @@
 						<router-link class="nav-link" aria-current="page" to="/" active-class="active">Leads</router-link>
 					</li>
 				</ul>
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item">
+						<!-- Modal component to create new Lead:  -->
+						<CreateLeadModal />
+					</li>
+				</ul>
 			</div>
 		</div>
 	</nav>
 
+	<!-- <Modal /> -->
 	<!-- Rendering the templates: -->
-	<div class="container">
+	<div class="container pt-4">
 		<router-view />
 	</div>
 </template>
+
+<script>
+import CreateLeadModal from "./components/CreateLeadModal.vue";
+
+export default {
+	components: {
+		CreateLeadModal,
+	},
+};
+</script>
 
 <style>
 .navbar {

@@ -20,6 +20,24 @@ class LeadService {
 			},
 		});
 	}
+	//Post Method:
+	createLead(fullName, phone, email, cpf) {
+		return axios.post(
+			BASE_URL,
+			{
+				name: fullName,
+				phone: phone,
+				email: email,
+				cpf: cpf,
+			},
+			//prettier-ignore
+			{headers: {
+			"Accept": "application/json",
+			"Content-Type": "application/json",
+			"token": `${TOKEN}`,
+		}}
+		);
+	}
 }
 
 //Exporting the class:
