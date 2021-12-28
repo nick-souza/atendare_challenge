@@ -1,6 +1,6 @@
 <template>
 	<div class="home">
-		<HelloWorld msg="Welcome to Your Vue.js App" />
+		<HelloWorld />
 	</div>
 </template>
 
@@ -13,26 +13,6 @@ export default {
 	name: "Home",
 	components: {
 		HelloWorld,
-	},
-	data() {
-		return {
-			leads: [],
-		};
-	},
-	methods: {
-		getLeads() {
-			LeadService.getLeads()
-				.then((response) => {
-					console.log(response.data);
-					// this.leads = response.data.content;
-				})
-				.catch(() => {
-					console.log("error");
-				});
-		},
-	},
-	created() {
-		this.getLeads();
 	},
 };
 </script>

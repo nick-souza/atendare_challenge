@@ -11,12 +11,12 @@ class LeadService {
 	//Get Method:
 	getLeads() {
 		// return axios.get(`${BASE_URL}?pageIndex=${pageIndex}&pageSize=${pageSize}`);
-		return axios.get(`${BASE_URL}?pageIndex=1&pageSize=15`, {
+		return axios.get(`${BASE_URL}?pageIndex=0&pageSize=15`, {
 			//prettier-ignore
 			headers: {
-				Accept: "application/json",
-				// "Content-Type": "application/json",
-				token: `${TOKEN}`,
+				"Accept": "application/json",
+				"Content-Type": "application/json",
+				"token": `${TOKEN}`,
 			},
 		});
 	}
