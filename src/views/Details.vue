@@ -1,13 +1,14 @@
 <template>
-	<h1>Detalhes</h1>
-	<!-- <LeadsTable /> -->
+	<EditLeadForm />
 </template>
 
 <script>
+import EditLeadForm from "../components/EditLeadForm.vue";
+
 export default {
 	name: "Details",
-	// components: {
-	// 	LeadsTable,
-	// },
+	components: {
+		EditLeadForm,
+	},
 };
 </script>

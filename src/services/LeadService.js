@@ -11,7 +11,17 @@ class LeadService {
 	//Get Method:
 	getLeads(pageIndex, pageSize) {
 		return axios.get(`${BASE_URL}?pageIndex=${pageIndex}&pageSize=${pageSize}`, {
-			// return axios.get(`${BASE_URL}?pageIndex=0&pageSize=15`, {
+			//prettier-ignore
+			headers: {
+				"Accept": "application/json",
+				"Content-Type": "application/json",
+				"token": `${TOKEN}`,
+			},
+		});
+	}
+	//Get By Id Method:
+	getLeadById(id) {
+		return axios.get(`${BASE_URL}/${id}`, {
 			//prettier-ignore
 			headers: {
 				"Accept": "application/json",
@@ -36,6 +46,19 @@ class LeadService {
 			"Content-Type": "application/json",
 			"token": `${TOKEN}`,
 		}}
+		);
+	}
+	//Put Method:
+	editLead(id, fullName, birthdate, gender) {
+		return axios.put(
+			`${BASE_URL}/${id}`,
+			{ name: fullName },
+			//prettier-ignore
+			{headers: {
+				"Accept": "application/json",
+				"Content-Type": "application/json",
+				"token": `${TOKEN}`,
+			}}
 		);
 	}
 }
