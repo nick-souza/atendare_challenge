@@ -20,5 +20,7 @@ Simple web application to perform CRUD operations on the atendare API.
 ##
 ![](https://imgur.com/XYZ9VDZ.png)
 ##
+![](https://imgur.com/111UEzO.png)
+##
 ![](https://imgur.com/sFGnDb9.png)
 ##
