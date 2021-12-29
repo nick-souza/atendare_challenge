@@ -1,5 +1,5 @@
 <template>
-	<EditLeadForm />
+	<EditLeadForm :id="id" />
 </template>
 
 <script>
@@ -10,5 +10,6 @@ export default {
 	components: {
 		EditLeadForm,
 	},
+	props: ["id"],
 };
 </script>

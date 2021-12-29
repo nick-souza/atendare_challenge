@@ -1,4 +1,29 @@
 <template>
+	<!-- DELETE LEAD MODAL -->
+	<div class="modal fade" id="deleteLead" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="staticBackdropLabel">Excluir Lead</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					Tem certeza que deseja excluir {{ this.deletedLead.name }}?<br />
+					Essa acao nao pode ser desfeita!
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+					<button id="deleteLeadYes" @click="deleteLead(this.deletedLead)" data-bs-dismiss="modal" type="button" class="btn btn-primary btn-danger">Sim!</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- <div class="alert alert-success alert-dismissible fade show" id="success-alert" role="alert">
+		<strong>Holy guacamole!</strong> You should check in on some of those fields below.
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div> -->
+	<!-- DELETE LEAD MODAL -->
+
 	<div class="table-responsive">
 		<!-- -----TABLE----- -->
 		<table class="table">
@@ -33,7 +58,8 @@
 					<!-- Button to show the details: -->
 					<td class="btns">
 						<button @click="deleteLeadHelper(lead)" class="btn btn-dark btn-sm me-2" data-bs-toggle="modal" data-bs-target="#deleteLead">Excluir</button>
-						<button href="#" type="button" class="btn btn-dark btn-sm"><i class="bi bi-pencil"></i> Detalhes</button>
+
+						<router-link :to="{ name: 'Details', params: { id: lead.id } }" type="button" class="btn btn-dark btn-sm">Detalhes</router-link>
 					</td>
 				</tr>
 			</tbody>
@@ -57,34 +83,16 @@
 		</ul>
 		<!-- -----PAGINATION BUTTONS----- -->
 	</div>
-
-	<!-- DELETE LEAD MODAL -->
-	<div class="modal fade" id="deleteLead" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="staticBackdropLabel">Excluir Lead</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					Tem certeza que deseja excluir {{ this.lead.name }}?<br />
-					Essa acao nao pode ser desfeita!
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-					<button @click="deleteLead(this.lead)" data-bs-dismiss="modal" type="button" class="btn btn-primary btn-danger">Sim!</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- DELETE LEAD MODAL -->
 </template>
 
 <script>
 import LeadService from "../services/LeadService";
 
+// import $ from "jquery";
+
 export default {
 	name: "LeadsTable",
+	components: {},
 	data() {
 		return {
 			//Store all the leads:
@@ -95,8 +103,8 @@ export default {
 			totalPages: 0,
 			pageSize: 10,
 
-			//Had some trouble passing the lead data to the modal, so created this variable to temporarily hold the value:
-			lead: [],
+			//Had some trouble passing the lead data to the delete modal, so created this variable to temporarily hold the value:
+			deletedLead: [],
 		};
 	},
 	methods: {
@@ -116,17 +124,20 @@ export default {
 					console.log(error);
 				});
 		},
+
 		//Helper function to change the value of the temp variable:
 		deleteLeadHelper(lead) {
-			this.lead = lead;
+			this.deletedLead = lead;
+			console.log(this.deletedLead);
 		},
 		//Delete Method:
 		deleteLead(lead) {
-			LeadService.deleteLead(this.lead.id)
+			LeadService.deleteLead(lead.id)
 				.then((response) => {
-					alert("Lead Deletada");
+					// alert("Lead Deletada");
 					this.getLeads();
 					this.lead = [];
+					$("#success-alert").show();
 				})
 				.catch((error) => {
 					console.log(error);
@@ -163,6 +174,7 @@ export default {
 .table > tbody > tr > td img {
 	width: 22px;
 }
+/* Centering the menu btn in the table */
 .btns {
 	text-align: center;
 }
