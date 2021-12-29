@@ -3,7 +3,13 @@
 	<nav class="navbar navbar-expand-lg navbar-dark">
 		<div class="container-fluid">
 			<a class="navbar-brand">
-				<img src="https://atendare-static.storage.googleapis.com/Images/Atendare/AtendareWhiteLogo.svg" alt="" width="126" height="24" class="d-inline-block align-text-top" />
+				<img
+					src="https://atendare-static.storage.googleapis.com/Images/Atendare/AtendareWhiteLogo.svg"
+					alt=""
+					width="126"
+					height="24"
+					class="d-inline-block align-text-top"
+				/>
 			</a>
 
 			<!-- Toggler Button will only show when using smaller width devices: -->
@@ -43,6 +49,7 @@
 </template>
 
 <script>
+// Importing the modal
 import CreateLeadModal from "./components/CreateLeadModal.vue";
 
 export default {

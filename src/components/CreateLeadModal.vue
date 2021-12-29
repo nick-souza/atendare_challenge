@@ -2,11 +2,15 @@
 	<!-- Button to toggle the modal window: -->
 	<button class="btn btn-success" type="button" data-bs-target="#createLead" data-bs-toggle="modal" id="button-addon2">Novo</button>
 
+	<!-- MODAL -->
 	<div class="modal fade" id="createLead" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="createLeadLabel" aria-hidden="true">
+		<!-- Centered with static backdrop: -->
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="createLeadLabel">Novo Lead</h5>
+
+					<!-- Clearing the form on close: -->
 					<button type="button" class="btn-close" data-bs-dismiss="modal" @click="clearForm()"></button>
 				</div>
 				<div class="modal-body">
@@ -22,9 +26,6 @@
 								<p class="text-danger">Insira um nome entre 5 e 20 caracteres.</p>
 							</div>
 							<!-- ERROR MESSAGE -->
-
-							<!-- <label class="form-label">Data de Nascimento</label>
-							<datepicker class="form-control" v-model="form.bdate" :clearable="false" :upper-limit="form.datePickerLimit" /> -->
 
 							<label class="form-label">Email</label>
 							<input class="form-control" v-model="v$.form.email.$model" @blur="v$.form.email.$touch()" />
@@ -56,6 +57,7 @@
 					</form>
 				</div>
 				<div class="modal-footer">
+					<!-- Calling create() and clearForm() on click, but only if all the inputs passed the verification: -->
 					<button
 						type="submit"
 						data-bs-dismiss="modal"
@@ -68,41 +70,37 @@
 					>
 						Criar
 					</button>
+
+					<!-- Clearing the form on close: -->
 					<button type="button" class="btn btn-secondary float-right" data-bs-dismiss="modal" @click="clearForm()">Fechar</button>
 				</div>
 			</div>
 		</div>
 	</div>
+	<!-- MODAL -->
 </template>
 
 <script>
 import LeadService from "../services/LeadService";
-
-// // DatePicker
-// import Datepicker from "vue3-datepicker";
-// import { ref } from "vue";
 
 // Validator
 import useVuelidate from "@vuelidate/core";
 import { required, minLength, maxLength, email } from "@vuelidate/validators";
 
 export default {
-	components: {
-		// Datepicker,
-	},
 	data() {
 		return {
+			//Storing the form data:
 			form: {
 				name: "",
 				email: "",
 				phone: "",
 				cpf: "",
-				// bdate: new Date(),
-				// datePickerLimit: new Date(),
 			},
 		};
 	},
-	//Vuelidate
+
+	//Doing the validations:
 	validations() {
 		return {
 			form: {
@@ -128,6 +126,7 @@ export default {
 			},
 		};
 	},
+
 	methods: {
 		// Clearing the input and the input errors (touch):
 		clearForm() {
@@ -137,24 +136,29 @@ export default {
 			this.form.email = "";
 			this.form.cpf = "";
 		},
+
 		// Clearing the input and the input errors (touch):
 		hideModal() {
-			this.v$.$reset();
-			this.form.name = "";
-			this.form.phone = "";
-			this.form.email = "";
-			this.form.cpf = "";
+			this.clearForm();
 		},
+
+		//Create method:
 		create() {
 			LeadService.createLead(this.form.name, this.form.phone, this.form.email, this.form.cpf)
 				.then((response) => {
-					alert("Lead Criado");
-					// this.getPacientes();
-					console.log(response);
+					//Redirecting the user to the details page to finish filling in the information:
+					this.$router.push({
+						name: "Details",
+
+						//Passing in the id from the success response:
+						params: { id: response.data.success.id },
+					});
 				})
 				.catch((error) => alert(error));
 		},
 	},
+
+	//Using the Vuelidate:
 	setup() {
 		return { v$: useVuelidate() };
 	},

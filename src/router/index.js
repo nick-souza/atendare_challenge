@@ -2,12 +2,16 @@ import { createRouter, createWebHashHistory } from "vue-router";
 import Leads from "../views/Leads.vue";
 import Details from "../views/Details.vue";
 
+//Creating the routes:
 const routes = [
+	//Main route for displaying the leads:
 	{
 		path: "/",
 		name: "Leads",
 		component: Leads,
 	},
+
+	//Secondary route to updating the leads:
 	{
 		path: "/details",
 		name: "Details",
@@ -16,6 +20,7 @@ const routes = [
 	},
 ];
 
+//To run in history mode:
 const router = createRouter({
 	history: createWebHashHistory(),
 	routes,

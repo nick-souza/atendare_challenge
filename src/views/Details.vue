@@ -1,4 +1,5 @@
 <template>
+	<!-- Rendering the component passing in the Lead ID -->
 	<EditLeadForm :id="id" />
 </template>
 
@@ -10,6 +11,8 @@ export default {
 	components: {
 		EditLeadForm,
 	},
+
+	//Lead ID Prop:
 	props: ["id"],
 };
 </script>

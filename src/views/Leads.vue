@@ -1,4 +1,5 @@
 <template>
+	<!-- Rendering the component: -->
 	<LeadsTable />
 </template>
 

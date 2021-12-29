@@ -12,6 +12,7 @@ class LeadService {
 	getLeads(pageIndex, pageSize) {
 		return axios.get(`${BASE_URL}?pageIndex=${pageIndex}&pageSize=${pageSize}`, {
 			//prettier-ignore
+			//For some reason prettier messes up the header code block, so I'm disabling it;
 			headers: {
 				"Accept": "application/json",
 				"Content-Type": "application/json",
