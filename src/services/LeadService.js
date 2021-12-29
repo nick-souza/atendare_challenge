@@ -40,12 +40,14 @@ class LeadService {
 				email: email,
 				cpf: cpf,
 			},
-			//prettier-ignore
-			{headers: {
-			"Accept": "application/json",
-			"Content-Type": "application/json",
-			"token": `${TOKEN}`,
-		}}
+			{
+				//prettier-ignore
+				headers: {
+					"Accept": "application/json",
+					"Content-Type": "application/json",
+					"token": `${TOKEN}`,
+		},
+			}
 		);
 	}
 	//Put Method:
@@ -53,13 +55,26 @@ class LeadService {
 		return axios.put(
 			`${BASE_URL}/${id}`,
 			{ name: fullName },
+			{
+				//prettier-ignore
+				headers: {
+					"Accept": "application/json",
+					"Content-Type": "application/json",
+					"token": `${TOKEN}`,
+			},
+			}
+		);
+	}
+	//Delete Method:
+	deleteLead(id) {
+		return axios.delete(`${BASE_URL}/${id}`, {
 			//prettier-ignore
-			{headers: {
+			headers: {
 				"Accept": "application/json",
 				"Content-Type": "application/json",
 				"token": `${TOKEN}`,
-			}}
-		);
+			},
+		});
 	}
 }
 

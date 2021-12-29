@@ -31,8 +31,9 @@
 					</td>
 
 					<!-- Button to show the details: -->
-					<td>
-						<button href="#" type="button" @click="showId(lead)" class="btn btn-dark btn-sm"><i class="bi bi-pencil"></i> Detalhes</button>
+					<td class="btns">
+						<button @click="deleteLeadHelper(lead)" class="btn btn-dark btn-sm me-2" data-bs-toggle="modal" data-bs-target="#deleteLead">Excluir</button>
+						<button href="#" type="button" class="btn btn-dark btn-sm"><i class="bi bi-pencil"></i> Detalhes</button>
 					</td>
 				</tr>
 			</tbody>
@@ -56,6 +57,27 @@
 		</ul>
 		<!-- -----PAGINATION BUTTONS----- -->
 	</div>
+
+	<!-- DELETE LEAD MODAL -->
+	<div class="modal fade" id="deleteLead" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="staticBackdropLabel">Excluir Lead</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					Tem certeza que deseja excluir {{ this.lead.name }}?<br />
+					Essa acao nao pode ser desfeita!
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+					<button @click="deleteLead(this.lead)" data-bs-dismiss="modal" type="button" class="btn btn-primary btn-danger">Sim!</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- DELETE LEAD MODAL -->
 </template>
 
 <script>
@@ -72,6 +94,9 @@ export default {
 			pageIndex: 0,
 			totalPages: 0,
 			pageSize: 10,
+
+			//Had some trouble passing the lead data to the modal, so created this variable to temporarily hold the value:
+			lead: [],
 		};
 	},
 	methods: {
@@ -87,12 +112,25 @@ export default {
 					//Store the results in the array
 					this.leads = response.data.results;
 				})
-				.catch(() => {
-					console.log("error");
+				.catch((error) => {
+					console.log(error);
 				});
 		},
-		showId(lead) {
-			console.log(lead.id);
+		//Helper function to change the value of the temp variable:
+		deleteLeadHelper(lead) {
+			this.lead = lead;
+		},
+		//Delete Method:
+		deleteLead(lead) {
+			LeadService.deleteLead(this.lead.id)
+				.then((response) => {
+					alert("Lead Deletada");
+					this.getLeads();
+					this.lead = [];
+				})
+				.catch((error) => {
+					console.log(error);
+				});
 		},
 
 		//Pagination Methods:
@@ -124,5 +162,8 @@ export default {
 /* Resizing the imgs: */
 .table > tbody > tr > td img {
 	width: 22px;
+}
+.btns {
+	text-align: center;
 }
 </style>
