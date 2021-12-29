@@ -7,10 +7,7 @@
 					<h5 class="modal-title" id="staticBackdropLabel">Excluir Lead</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
-				<div class="modal-body">
-					Tem certeza que deseja excluir {{ this.deletedLead.name }}?<br />
-					Essa acao nao pode ser desfeita!
-				</div>
+				<div class="modal-body">Tem certeza que deseja excluir {{ this.deletedLead.name }}?</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
 					<button id="deleteLeadYes" @click="deleteLead(this.deletedLead)" data-bs-dismiss="modal" type="button" class="btn btn-primary btn-danger">Sim!</button>
@@ -18,10 +15,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- <div class="alert alert-success alert-dismissible fade show" id="success-alert" role="alert">
-		<strong>Holy guacamole!</strong> You should check in on some of those fields below.
-		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-	</div> -->
+
 	<!-- DELETE LEAD MODAL -->
 
 	<div class="table-responsive">

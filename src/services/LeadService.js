@@ -51,10 +51,17 @@ class LeadService {
 		);
 	}
 	//Put Method:
-	editLead(id, fullName, birthdate, gender) {
+	editLead(id, fullName, phone, email, cpf, birthdate, gender) {
 		return axios.put(
 			`${BASE_URL}/${id}`,
-			{ name: fullName },
+			{
+				name: fullName,
+				phone: phone,
+				email: email,
+				cpf: cpf,
+				gender: gender,
+				birthdate: birthdate,
+			},
 			{
 				//prettier-ignore
 				headers: {
