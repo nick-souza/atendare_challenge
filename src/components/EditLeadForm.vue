@@ -1,24 +1,51 @@
 <template>
-	<h1 class="mb-4 mt-2">Editar {{ lead.name }}</h1>
+	<h1 class="mb-4 mt-2">
+		Editar
+		{{ lead.name }}
+	</h1>
 	<form @submit.prevent="onSubmit">
 		<div class="row">
 			<div class="col-sm-6">
 				<label for="editLead" class="form-label">Nome</label>
-				<input type="text" class="form-control" id="name" v-model="this.form.name" ref="name" />
+				<input type="text" class="form-control" id="name" v-model="v$.form.name.$model" @blur="v$.form.name.$touch()" />
+
+				<!-- ERROR MESSAGE -->
+				<div v-if="v$.form.name.$error">
+					<p class="text-danger">Insira um nome entre 5 e 20 caracteres.</p>
+				</div>
+				<!-- ERROR MESSAGE -->
 			</div>
 			<div class="col-sm-6">
 				<label for="editLead" class="form-label">Email</label>
-				<input type="email" class="form-control" id="email" v-model="this.form.email" ref="email" />
+				<input type="email" class="form-control" id="email" v-model="v$.form.email.$model" @blur="v$.form.email.$touch()" />
+
+				<!-- ERROR MESSAGE -->
+				<div v-if="v$.form.email.$error">
+					<p class="text-danger">Insira um email válido.</p>
+				</div>
+				<!-- ERROR MESSAGE -->
 			</div>
 		</div>
 		<div class="row mt-3">
 			<div class="col-sm-6">
 				<label for="editLead" class="form-label">Telefone</label>
-				<input type="text" class="form-control" id="phone" v-model="this.form.phone" v-maska="'(##) #####-####'" ref="phone" />
+				<input type="text" class="form-control" id="phone" v-model="v$.form.phone.$model" @blur="v$.form.phone.$touch()" v-maska="'(##) #####-####'" />
+
+				<!-- ERROR MESSAGE -->
+				<div v-if="v$.form.phone.$error">
+					<p class="text-danger">Insira um telefone válido.</p>
+				</div>
+				<!-- ERROR MESSAGE -->
 			</div>
 			<div class="col-sm-6">
 				<label for="editLead" class="form-label">CPF</label>
-				<input type="text" class="form-control" id="cpf" v-model="this.form.cpf" v-maska="'###.###.###-##'" ref="cpf" />
+				<input type="text" class="form-control" id="cpf" v-model="v$.form.cpf.$model" @blur="v$.form.cpf.$touch()" v-maska="'###.###.###-##'" />
+
+				<!-- ERROR MESSAGE -->
+				<div v-if="v$.form.cpf.$error">
+					<p class="text-danger">Insira um CPF válido.</p>
+				</div>
+				<!-- ERROR MESSAGE -->
 			</div>
 		</div>
 		<div class="row mt-3">
@@ -35,7 +62,7 @@
 			</div>
 		</div>
 		<div class="mt-5 d-grid gap-2">
-			<button type="submit" class="btn btn-success" @click="editLead()">Salvar</button>
+			<button type="submit" class="btn btn-success" @click="editLead()" :disabled="v$.form.$invalid">Salvar</button>
 		</div>
 	</form>
 </template>
@@ -47,14 +74,49 @@ import LeadService from "../services/LeadService";
 import Datepicker from "vue3-datepicker";
 import { ref } from "vue";
 
+// Validator
+import useVuelidate from "@vuelidate/core";
+import { required, minLength, maxLength, email } from "@vuelidate/validators";
+
 export default {
 	name: "EditLeadForm",
 
 	components: {
 		Datepicker,
 	},
+	setup() {
+		return {
+			v$: useVuelidate(),
+		};
+	},
 
 	props: ["id"],
+
+	validations() {
+		return {
+			form: {
+				name: {
+					required,
+					min: minLength(5),
+					max: maxLength(20),
+				},
+				phone: {
+					required,
+					min: minLength(15),
+					max: maxLength(15),
+				},
+				email: {
+					required,
+					email,
+				},
+				cpf: {
+					required,
+					min: minLength(14),
+					max: maxLength(14),
+				},
+			},
+		};
+	},
 
 	data() {
 		return {
@@ -99,9 +161,6 @@ export default {
 				.catch((error) => {
 					console.log(error);
 				});
-		},
-		printOut() {
-			console.log(this.form.birthdate.toISOString());
 		},
 	},
 	created() {
